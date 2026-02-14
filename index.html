@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JADS Profile</title>
+
+<style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+    body {
+        margin: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+    }
+
+    /* INTRO BLACK SCREEN */
+    #idintro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 9999;        /* always in front */
+    opacity: 1;
+    }
+
+    /* fade out animation */
+    .intro-fade-out {
+    animation: fadeOut 3s ease forwards;
+    }
+
+    @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; visibility: hidden; }
+    }
+
+
+    /* Fullscreen Video Background */
+    #bgVideo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        filter: blur(4px) brightness(0.45);
+
+        opacity: 0;
+        transition: opacity 1.5s ease;
+    }
+
+    
+
+     /* Fade animations video */
+    .fade-in-video {
+        animation: fadeVideo 1.5s ease forwards;
+    }
+
+    @keyframes fadeVideo {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Card */
+    .card {
+        position: fixed;
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 450px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 40px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.1);
+        z-index: 3;
+
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Slow Motion Shake */
+    @keyframes slowshake {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(calc(-50% + 4px), -50%) rotate(1deg); }
+    50% { transform: translate(-50%, calc(-50% - 2px)) rotate(-1deg); }
+    75% { transform: translate(calc(-50% - 4px), -50%) rotate(1deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+    }
+
+    .card:hover {
+    animation: slowshake 1.2s ease-in-out;
+    box-shadow: 0 0 60px rgba(255,255,255,0.5);
+    }
+
+    .banner {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+    }
+
+    .content {
+        padding: 25px;
+        color: white;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+
+    .name {
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+
+    hr {
+        margin: 20px 0;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .socials {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .socials a {
+        color: white;
+        font-size: 22px;
+        margin-right: 12px;
+        transition: 0.2s;
+    }
+
+    .socials a:hover {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    /* Discord Logo Animation */
+    .discord-anim {
+    display: inline-block;
+    transition: 0.3s ease;
+    }
+
+    .discord-anim:hover {
+    animation: discordBounce 0.6s ease;
+    filter: drop-shadow(0 0 8px #a3a8e1);
+    }
+
+    @keyframes discordBounce {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.15) rotate(3deg); }
+    60% { transform: scale(0.95) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* instagram Logo Animation */
+    .instagram-anim {
+    display: inline-block;
+    transition: 0.3s ease;
+    }
+
+    .instagram-anim:hover {
+    animation: instagramBounce 0.6s ease;
+    filter: drop-shadow(0 0 8px #a3a8e1);
+    }
+
+    @keyframes instagramBounce {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.15) rotate(3deg); }
+    60% { transform: scale(0.95) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+    }
+
+</style>
+</head>
+<body onclick="playVideoSound()">
+
+<!-- BLACK FADE IN -->
+<img id="idintro" src="STALKER.png">
+
+<!-- VIDEO BACKGROUND -->
+<video id="bgVideo" autoplay loop >
+    <source src="bgdrift.mp4" type="video/mp4">
+</video>
+
+<script>
+function playVideoSound() {
+    const vid = document.getElementById("bgVideo");
+    const intro = document.getElementById("idintro");
+
+    // Unmute and play video
+    vid.muted = false;
+    vid.volume = 1.0;
+    vid.play();
+
+    // Fade in video
+    vid.classList.add("fade-in-video");
+
+    // Fade out the black intro
+    intro.classList.add("intro-fade-out");
+
+    // Disable further clicks
+    document.body.onclick = null; 
+}
+
+</script>
+
+<!-- CARD -->
+<div class="card">
+    <img class="banner" src="tkybg.jpg">
+
+    <div class="content">
+        <div class="profile">
+            <img class="avatar" src="batman.jpg">
+            <div>
+                <div class="name">JADS</div>
+                <div style="opacity:0.6; font-size:13px;">FUCK OFF</div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="socials">
+            <a href="https://www.instagram.com/d1v.shittt/?hl=en"><i class="fa-brands fa-instagram instagram-anim"></i></a>
+            <label style="opacity:0.6; font-size:13px;"> d1v.shittt </label>
+
+            <br><br>
+
+            <a href="https://discord.com/users/1003888446223425536"><i class="fa-brands fa-discord discord-anim"></i></a>
+            <label style="opacity:0.6; font-size:13px;"> JAD$ </label>
+
+             <br><br>
+
+            <a href="https://open.spotify.com/user/31tljy36p42neg23cy2s3ddsij3a"><i class="fa-brands fa-spotify discord-anim"></i></a>
+            <label style="opacity:0.6; font-size:13px;"> DIV.SH1TTT</label>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
